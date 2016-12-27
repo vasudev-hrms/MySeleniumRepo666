@@ -1,0 +1,39 @@
+ var scriptName='script_1';
+ var stores = require("store");
+ var pubsub = require("pubsub");
+ var devices = require("device");
+ var util = require("./util");
+ function run(stopOnError, errorMessages){ 
+ var parameters="";
+ var response=""; 
+parameters={"groupName":"deployment-execute"};
+util.callApi("SaveGroup", parameters, null, errorMessages, stopOnError, scriptName, "deployment-execute");
+parameters={"groupName":"script-execute"};
+util.callApi("SaveGroup", parameters, null, errorMessages, stopOnError, scriptName, "script-execute");
+parameters={"groupName":"script-read"};
+util.callApi("SaveGroup", parameters, null, errorMessages, stopOnError, scriptName, "script-read");
+ response =  stores.create("DefaultStore");
+util.handleResponse(response, errorMessages, stopOnError, "stores.save", scriptName, "DefaultStore");
+ response =  stores.create("test");
+util.handleResponse(response, errorMessages, stopOnError, "stores.save", scriptName, "test");
+util.callApi("SaveConfiguration", {"apsdb.defaultResponseType":"JSON","apsdb.defaultRepositoryName":"MySeleniumRepo578","apsdb.defaultRepositoryOwner":"vasudev-hrms","apsdb.defaultRepositoryBranch":"master","apsdb.defaultRepositoryAccessToken":"ca117ab514d4dc17aae3b430f45f0a9e619f9e3b","apsdb.defaultScriptExecutionACL":"scriptr@O582A847CF@O582A847CF","apsdb.defaultReadACL":"scriptr","apsdb.disableSchemalessDocs":"true","apsdb.optionalBindReferrer":"false","apsdb.defaultTokenExpires":"1800","apsdb.maximumTokenExpires":"86400","apsdb.defaultTokenLifeTime":"7200","apsdb.maximumTokenLifeTime":"604800","apsdb.allowForce200ResponseStatus":"true","apsdb.useDeprecatedSocialApis":"false","apsdb.accessControlAllowOrigin":"http://HemaChandra.scriptrapps.io,https://HemaChandra.scriptrapps.io,https://staging.scriptr.io","apsdb.gitPurge":"true","apsdb.defaultGitWebhookId":"11263532","apsdb.P3P":""}, null, errorMessages, stopOnError, scriptName, "");
+util.callApi("SaveConfiguration", {"apsdb.DefaultStore.deleteDocumentACL":"nobody","apsdb.DefaultStore.getFileACL":"nobody","apsdb.DefaultStore.saveDocumentACL":"nobody","apsdb.DefaultStore.queryACL":"nobody"}, null, errorMessages, stopOnError, scriptName, "DefaultStore");
+util.callApi("SaveConfiguration", {"apsdb.test.saveDocumentACL":"nobody","apsdb.test.deleteDocumentACL":"nobody","apsdb.test.getFileACL":"nobody","apsdb.test.queryACL":"nobody"}, null, errorMessages, stopOnError, scriptName, "test");
+var channel_testtesttesttest_options={  "subscribeACL": "authenticated", "publishACL": "authenticated" }
+response =  pubsub.createChannel("testtesttesttest",channel_testtesttesttest_options);
+util.handleResponse(response, errorMessages, stopOnError, "pubsub.createChannel", scriptName, "testtesttesttest");
+var channel_Channel1_options={  "subscribeACL": "authenticated", "publishACL": "authenticated" }
+response =  pubsub.createChannel("Channel1",channel_Channel1_options);
+util.handleResponse(response, errorMessages, stopOnError, "pubsub.createChannel", scriptName, "Channel1");
+var channel_ChannelName_options={  "subscribeACL": "authenticated", "publishACL": "authenticated" }
+response =  pubsub.createChannel("ChannelName",channel_ChannelName_options);
+util.handleResponse(response, errorMessages, stopOnError, "pubsub.createChannel", scriptName, "ChannelName");
+response = devices.save({"password":"scriptr_GitHub.com","groups":["deployment-execute","script-execute","script-read"],"type":"application","name":"GitHub.com","id":"scriptr_GitHub.com"});
+util.handleResponse(response, errorMessages, stopOnError, "devices.save", scriptName, "scriptr_GitHub.com");
+response = devices.generateToken("scriptr_GitHub.com");
+util.handleResponse(response, errorMessages, stopOnError, "devices.generateToken", scriptName, "scriptr_GitHub.com");
+response = devices.save({"password":"scriptr","isSuspended":"false","name":"My Device","id":"scriptr"});
+util.handleResponse(response, errorMessages, stopOnError, "devices.save", scriptName, "scriptr");
+response = devices.generateToken("scriptr");
+util.handleResponse(response, errorMessages, stopOnError, "devices.generateToken", scriptName, "scriptr");
+ }
